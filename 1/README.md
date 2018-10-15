@@ -1,14 +1,15 @@
 自然語言與python
 ==
 ## 使用nltk套件
-+ 下載nltk內建文本
+下載nltk內建文本
 ``` python
 import nltk
 nltk.download()
 ```
-+ 匯入剛下載的文本
+匯入剛下載的文本
 ``` python
 >>> from nltk.book import *
+"""
 *** Introductory Examples for the NLTK Book ***
 Loading text1, ..., text9 and sent1, ..., sent9
 Type the name of the text or sentence to view it.
@@ -22,9 +23,46 @@ text6: Monty Python and the Holy Grail
 text7: Wall Street Journal
 text8: Personals Corpus
 text9: The Man Who Was Thursday by G . K . Chesterton 1908
->>>
+"""
 ```
-+ 在文本後用concordance()方法搜尋字串
+在文本後用concordance()方法搜尋字串
 ```python
-text1.concordance('tomorror')
+>>>text1.concordance('god')
+"""
+Displaying 25 of 25 matches:
+linterable glasses ! EXTRACTS . " And God created great whales ." -- GENESIS . 
+ . " That sea beast Leviathan , which God of all his works Created hugest that 
+ . A . D . 1668 . " Whales in the sea God ' s voice obey ." -- N . E . PRIMER .
+ ' S CONVERSATIONS WITH GOETHE . " My God ! Mr . Chace , what is the matter ?" 
+out me in the dark . " Landlord , for God ' s sake , Peter Coffin !" shouted I 
+ of the word , to the faithful man of God , this pulpit , I see , is a self - c
+orld . From thence it is the storm of God ' s quick wrath is first descried , a
+arliest brunt . From thence it is the God of breezes fair or foul is first invo
+ed over me a dismal gloom , While all God ' s sun - lit waves rolled by , And l
+r . " In black distress , I called my God , When I could scarce believe him min
+htning shone The face of my Deliverer God . " My song for ever shall record Tha
+ joyful hour ; I give the glory to my God , His all the mercy and the power . N
+of the first chapter of Jonah --' And God had prepared a great fish to swallow 
+lesson to me as a pilot of the living God . As sinful men , it is a lesson to u
+wilful disobedience of the command of God -- never mind now what that command w
+ard command . But all the things that God would have us do are hard for us to d
+ndeavors to persuade . And if we obey God , we must disobey ourselves ; and it 
+ves , wherein the hardness of obeying God consists . " With this sin of disobed
+n him , Jonah still further flouts at God , by seeking to flee from Him . He th
+n will carry him into countries where God does not reign , but only the Captain
+onah sought to flee world - wide from God ? Miserable man ! Oh ! most contempti
+at and guilty eye , skulking from his God ; prowling among the shipping like a 
+ and turns in giddy anguish , praying God for annihilation until the fit be pas
+. In all his cringing attitudes , the God - fugitive is now too plainly known .
+forced from Jonah by the hard hand of God that is upon him . "' I am a Hebrew ,
+"""
+```
+
+搜尋兩個字串共同的上下文
+```python
+text1.common_contexts(["father", "god"])
+```
+觀察字串分布在文本中的位置
+```python
+text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 ```
