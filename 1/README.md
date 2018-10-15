@@ -62,7 +62,27 @@ forced from Jonah by the hard hand of God that is upon him . "' I am a Hebrew ,
 ```python
 text1.common_contexts(["father", "god"])
 ```
-觀察字串分布在文本中的位置
+觀察字串分布在文本中的位置，可使用歷屆總統講稿觀察當中詞彙變化
 ```python
 text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
+```
+對文本使用count()可得到出現次數
+```python
+>>>text1.count('god')
+20
+```
+將文本放進len()函數可得文本總字數
+```python
+>>>len(text1)
+260819
+```
+文本總字數(不重複)
+```python
+>>>len(set(text1))
+19317
+```
+把單詞出現次數除上文本總字數，可得單詞出現在文本中的頻率
+```python
+>>>text1.count('god')/len(text1)
+7.668153010325168e-05
 ```
