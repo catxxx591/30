@@ -75,9 +75,7 @@ text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 ```python
 >>>len(text1)
 260819
-```
-文本總字數(不重複)
-```python
+#文本總字數(不重複)
 >>>len(set(text1))
 19317
 ```
@@ -85,4 +83,15 @@ text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 ```python
 >>>text1.count('god')/len(text1)
 7.668153010325168e-05
+```
+想知道文本中出現頻率最高的字可用FreqDist()將單詞與次數做成dict，再用.most_common(5)以列表的格式呈現
+```python
+>>>FreqDist(text1)
+"""
+FreqDist({',': 3681, 'and': 2428, 'the': 2411, 'of': 1358, '.': 1315, 'And': 1250, 'his': 651, 'he': 648, 'to': 611, ';': 605, ...})
+"""
+>>>FreqDist(text1).most_common(5)
+"""
+[(',', 3681), ('and', 2428), ('the', 2411), ('of', 1358), ('.', 1315)]
+"""
 ```
