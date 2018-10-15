@@ -24,7 +24,7 @@ text8: Personals Corpus
 text9: The Man Who Was Thursday by G . K . Chesterton 1908
 >>>
 ```
-+ 在文本後用concordance方法搜尋字串
++ 在文本後用concordance()方法搜尋字串
 ```python
-text.concordance('tomorror')
+text1.concordance('tomorror')
 ```
