@@ -88,7 +88,7 @@ text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 >>>text1.count('god')/len(text1)
 7.668153010325168e-05
 ```
-想知道文本中出現頻率最高的字可用FreqDist()將單字與次數做成dict，再用.most_common(5)以列表的格式呈現
+想知道文本中出現頻率最高的字可用FreqDist()將單字與次數做成dict，再用.most_common()以list呈現
 ```python
 >>>FreqDist(text1)
 FreqDist({',': 3681, 'and': 2428, 'the': 2411, 'of': 1358, '.': 1315, 'And': 1250, 'his': 651, 'he': 648, 'to': 611, ';': 605, ...})
@@ -249,3 +249,4 @@ CRONE
 
 0.015640968673628082
 ```
+參考資料:Python 自然语言处理 第二版 <https://usyiyi.github.io/nlp-py-2e-zh/1.html>
