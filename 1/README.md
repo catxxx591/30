@@ -1,5 +1,6 @@
 自然語言與python
 ==
+面對超過海量的文字我們勢必得進行有效率搜尋與篩選才能迅速獲得需要的訊息
 ## 使用nltk套件
 下載nltk內建文本
 ``` python
@@ -9,7 +10,8 @@ nltk.download()
 匯入剛下載的文本
 ``` python
 >>> from nltk.book import *
-"""
+```
+```
 *** Introductory Examples for the NLTK Book ***
 Loading text1, ..., text9 and sent1, ..., sent9
 Type the name of the text or sentence to view it.
@@ -23,12 +25,13 @@ text6: Monty Python and the Holy Grail
 text7: Wall Street Journal
 text8: Personals Corpus
 text9: The Man Who Was Thursday by G . K . Chesterton 1908
-"""
+
 ```
 在文本後用concordance()方法搜尋字串
 ```python
 >>>text1.concordance('god')
-"""
+```
+```
 Displaying 25 of 25 matches:
 linterable glasses ! EXTRACTS . " And God created great whales ." -- GENESIS . 
  . " That sea beast Leviathan , which God of all his works Created hugest that 
@@ -55,7 +58,6 @@ at and guilty eye , skulking from his God ; prowling among the shipping like a
  and turns in giddy anguish , praying God for annihilation until the fit be pas
 . In all his cringing attitudes , the God - fugitive is now too plainly known .
 forced from Jonah by the hard hand of God that is upon him . "' I am a Hebrew ,
-"""
 ```
 
 搜尋兩個字串共同的上下文
@@ -66,6 +68,8 @@ text1.common_contexts(["father", "god"])
 ```python
 text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 ```
+![](https://github.com/catxxx591/30/blob/master/img/txt1_dispersion.png?raw=true)
+
 對文本使用count()可得到出現次數
 ```python
 >>>text1.count('god')
@@ -79,58 +83,170 @@ text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 >>>len(set(text1))
 19317
 ```
-把單詞出現次數除上文本總字數，可得單詞出現在文本中的頻率
+把單字出現次數除上文本總字數，可得單字出現在文本中的頻率
 ```python
 >>>text1.count('god')/len(text1)
 7.668153010325168e-05
 ```
-想知道文本中出現頻率最高的字可用FreqDist()將單詞與次數做成dict，再用.most_common(5)以列表的格式呈現
+想知道文本中出現頻率最高的字可用FreqDist()將單字與次數做成dict，再用.most_common()以list呈現
 ```python
 >>>FreqDist(text1)
-"""
 FreqDist({',': 3681, 'and': 2428, 'the': 2411, 'of': 1358, '.': 1315, 'And': 1250, 'his': 651, 'he': 648, 'to': 611, ';': 605, ...})
-"""
+
 >>>FreqDist(text1).most_common(5)
-"""
 [(',', 3681), ('and', 2428), ('the', 2411), ('of', 1358), ('.', 1315)]
-"""
 ```
-可再將單詞與次數做成累積頻率圖
+可再將單字與次數做成累積頻率圖
 ```python
-FreqDist(text1).plot(50, cumulative=True)
+>>>FreqDist(text1).plot(50, cumulative=True)
 ```
 ![](https://github.com/catxxx591/30/blob/master/img/txt1_cumulative.png?raw=true)
 
-也可選出無重複過的單詞
+也可選出無重複過的單字
 ```python
-FreqDist(text1).hapaxes()
+>>>FreqDist(text1).hapaxes()
 ```
 
-### 細粒度的選擇
+### 篩選
+可運用list(w for w in set(text1) if boolean)的格式找出符合條件的單字
 
-```python
->>> V = set(text1)
->>> long_words = [w for w in V if len(w) > 15]
->>> sorted(long_words)
-"""
-['CIRCUMNAVIGATION', 'Physiognomically', 'apprehensiveness', 'cannibalistically',
-'characteristically', 'circumnavigating', 'circumnavigation', 'circumnavigations',
-'comprehensiveness', 'hermaphroditical', 'indiscriminately', 'indispensableness',
-'irresistibleness', 'physiognomically', 'preternaturalness', 'responsibilities',
-'simultaneousness', 'subterraneousness', 'supernaturalness', 'superstitiousness',
-'uncomfortableness', 'uncompromisedness', 'undiscriminating', 'uninterpenetratingly']
-"""
-```
-使用text5聊天室文本來做單詞篩選，搜尋長度>7而且出現次數>7的單詞
+搜尋長度>7而且出現次數>7的單字
 ```python
 >>>fdist5 = FreqDist(text5)
 >>>sorted(w for w in set(text5) if len(w) > 7 and fdist5[w] > 7)
-"""
+
 ['#14-19teens', '#talkcity_adults', '((((((((((', '........', 'Question',
 'actually', 'anything', 'computer', 'cute.-ass', 'everyone', 'football',
 'innocent', 'listening', 'remember', 'seriously', 'something', 'together',
 'tomorrow', 'watching']
-"""
 ```
-- 詞語搭配與雙連詞
-有些詞語經常搭配在一起使用且不能被類似的字替換，例如green card換成blue card意義上就不太一樣
+搜尋text1內包含"app"且字尾是"ss"的單字
+```python
+ >>>appss = list(w for w in set(text1) if "app" in w and  w.endswith("ss"))
+ >>>appss
+
+['apprehensiveness', 'happiness', 'nappishness']
+
+```
+接著透過count()得到出現次數
+
+```python
+>>>appcount = list(text1.count(w) for w in appss)
+>>>appcount
+[4,2,1]
+```
+也可以由FreqDist()完成
+```python
+>>>list(FreqDist(text1)[w] for w in appss)
+[4,2,1]
+```
+最後整理成字典
+```python
+>>>dict(zip(appss, appcount))
+{'apprehensiveness': 4, 'happiness': 2, 'nappishness': 1}
+```
+## 練習
+- 寫一個切片表達式提取text2中最後兩個詞
+```python
+>>>text2[-2:]
+['THE', 'END']
+```
+- 找出聊天語料庫（text5）中所有四個字母的詞。使用頻率分佈函數（FreqDist），以頻率從高到低顯示這些詞。
+使用FreqDist的.most_common()方法，可得到單字與次數的list且依照次數排序，先把list名稱定義為fd5_freq
+```python
+>>>fd5_freq = FreqDist(text5).most_common()
+>>>print(fd5_freq)
+
+[('.', 1268),
+ ('JOIN', 1021),
+ ('PART', 1016),
+ ('?', 737),
+ ('lol', 704),
+ ('to', 658),
+ ('i', 648),
+ ...
+ 
+ ```
+ 接著要篩選只留下4個字母的單字，使用for in來處理
+ ```python
+>>>list(w for w in fd5_freq if len(w)==4)
+[]
+```
+依照直覺打出的code回傳的結果看來是錯誤的，w當中還有兩個元素，必須要加以指定
+如果不想顯示次數，將for前面w改為w[0]即可
+```python
+>>>list(w for w in fd5_freq if len(w[0])==4)
+[('JOIN', 1021),
+ ('PART', 1016),
+ ('that', 274),
+ ('what', 183),
+ ('here', 181),
+ ...
+ ```
+- 使用for和if語句組合循環遍歷《巨蟒和聖杯》（text6）的電影劇本中的詞，print所有的大寫詞，每行輸出一個。
+```python
+>>>for w in set(text6):
+...    if w.isupper():
+...        print(w)
+
+STUNNER
+BEDEVERE
+DENNIS
+GOD
+CHARACTERS
+PRINCESS
+CRONE
+...
+
+```
+- 寫表達式找出text6中所有符合下列條件的詞。結果應該是單詞列表的形式：['word1', 'word2', ...]。
+
+1. 以ize 結尾
+2. 包含字母z
+3. 包含字母序列pt
+4. 除了首字母外是全部小寫字母的詞（即titlecase）
+```python
+>>>list(w for w in set(text6) if w.endswith('ize'))
+>>>list(w for w in set(text6) if 'z' in w)
+>>>list(w for w in set(text6) if 'pt' in w)
+>>>list(w for w in set(text6) if w.istitle())
+```
+
+- 定義sent為一個單詞列表：['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']。編寫代碼執行以下任務：
+
+1. 輸出所有sh開頭的單詞
+2. 輸出所有長度超過4 個字符的詞
+```python
+>>>sent = ['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']
+>>>list(w for w in sent if w.startswith('sh'))
+>>>list(w for w in sent if len(w)>4)
+```
+
+- 下面的Python 代碼是做什麼的？ sum(len(w) for w in text1) 你可以用它來算出一個文本的平均字長嗎？
+把文本所有單字長度加起來 = 文本用了多少字母
+除以文本的單字數得平均字長
+```python
+>>>sum(len(w) for w in text1)/len(text1)
+3.830411128023649
+```
+
+- 定義一個名為vocab_size(text)的函數，以文本作為唯一的參數，返回文本的詞彙量。
+```python
+>>>def vocab_size(text):
+...    return len(set(text))
+>>>vocab_size(text5)
+6066
+```
+
+- 定義一個函數percent(word, text)，計算一個給定的詞在文本中出現的頻率，結果以百分比表示。
+```python
+>>>def percent(word,text):
+...    fdist = FreqDist(text)
+...    a = fdist[word]
+...    b = len(text)
+...    return a/b
+>>>percent('lol',text5)
+
+0.015640968673628082
+```
+參考資料:Python 自然语言处理 第二版 <https://usyiyi.github.io/nlp-py-2e-zh/1.html>
