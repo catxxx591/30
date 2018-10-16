@@ -95,3 +95,42 @@ FreqDist({',': 3681, 'and': 2428, 'the': 2411, 'of': 1358, '.': 1315, 'And': 125
 [(',', 3681), ('and', 2428), ('the', 2411), ('of', 1358), ('.', 1315)]
 """
 ```
+可再將單詞與次數做成累積頻率圖
+```python
+FreqDist(text1).plot(50, cumulative=True)
+```
+![](https://github.com/catxxx591/30/blob/master/img/txt1_cumulative.png?raw=true)
+
+也可選出無重複過的單詞
+```python
+FreqDist(text1).hapaxes()
+```
+
+### 細粒度的選擇
+
+```python
+>>> V = set(text1)
+>>> long_words = [w for w in V if len(w) > 15]
+>>> sorted(long_words)
+"""
+['CIRCUMNAVIGATION', 'Physiognomically', 'apprehensiveness', 'cannibalistically',
+'characteristically', 'circumnavigating', 'circumnavigation', 'circumnavigations',
+'comprehensiveness', 'hermaphroditical', 'indiscriminately', 'indispensableness',
+'irresistibleness', 'physiognomically', 'preternaturalness', 'responsibilities',
+'simultaneousness', 'subterraneousness', 'supernaturalness', 'superstitiousness',
+'uncomfortableness', 'uncompromisedness', 'undiscriminating', 'uninterpenetratingly']
+"""
+```
+使用text5聊天室文本來做單詞篩選，搜尋長度>7而且出現次數>7的單詞
+```python
+>>>fdist5 = FreqDist(text5)
+>>>sorted(w for w in set(text5) if len(w) > 7 and fdist5[w] > 7)
+"""
+['#14-19teens', '#talkcity_adults', '((((((((((', '........', 'Question',
+'actually', 'anything', 'computer', 'cute.-ass', 'everyone', 'football',
+'innocent', 'listening', 'remember', 'seriously', 'something', 'together',
+'tomorrow', 'watching']
+"""
+```
+- 詞語搭配與雙連詞
+有些詞語經常搭配在一起使用且不能被類似的字替換，例如green card換成blue card意義上就不太一樣
