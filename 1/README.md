@@ -9,7 +9,8 @@ nltk.download()
 匯入剛下載的文本
 ``` python
 >>> from nltk.book import *
-"""
+```
+```
 *** Introductory Examples for the NLTK Book ***
 Loading text1, ..., text9 and sent1, ..., sent9
 Type the name of the text or sentence to view it.
@@ -23,12 +24,13 @@ text6: Monty Python and the Holy Grail
 text7: Wall Street Journal
 text8: Personals Corpus
 text9: The Man Who Was Thursday by G . K . Chesterton 1908
-"""
+
 ```
 在文本後用concordance()方法搜尋字串
 ```python
 >>>text1.concordance('god')
-"""
+```
+```
 Displaying 25 of 25 matches:
 linterable glasses ! EXTRACTS . " And God created great whales ." -- GENESIS . 
  . " That sea beast Leviathan , which God of all his works Created hugest that 
@@ -55,7 +57,6 @@ at and guilty eye , skulking from his God ; prowling among the shipping like a
  and turns in giddy anguish , praying God for annihilation until the fit be pas
 . In all his cringing attitudes , the God - fugitive is now too plainly known .
 forced from Jonah by the hard hand of God that is upon him . "' I am a Hebrew ,
-"""
 ```
 
 搜尋兩個字串共同的上下文
@@ -89,13 +90,9 @@ text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 想知道文本中出現頻率最高的字可用FreqDist()將單字與次數做成dict，再用.most_common(5)以列表的格式呈現
 ```python
 >>>FreqDist(text1)
-"""
 FreqDist({',': 3681, 'and': 2428, 'the': 2411, 'of': 1358, '.': 1315, 'And': 1250, 'his': 651, 'he': 648, 'to': 611, ';': 605, ...})
-"""
 >>>FreqDist(text1).most_common(5)
-"""
 [(',', 3681), ('and', 2428), ('the', 2411), ('of', 1358), ('.', 1315)]
-"""
 ```
 可再將單字與次數做成累積頻率圖
 ```python
@@ -115,20 +112,20 @@ FreqDist(text1).hapaxes()
 ```python
 >>>fdist5 = FreqDist(text5)
 >>>sorted(w for w in set(text5) if len(w) > 7 and fdist5[w] > 7)
-"""
+```
+```
 ['#14-19teens', '#talkcity_adults', '((((((((((', '........', 'Question',
 'actually', 'anything', 'computer', 'cute.-ass', 'everyone', 'football',
 'innocent', 'listening', 'remember', 'seriously', 'something', 'together',
 'tomorrow', 'watching']
-"""
 ```
 搜尋text1內包含"app"且字尾是"ss"的單字
 ```python
  >>>appss = list(w for w in set(text1) if "app" in w and  w.endswith("ss"))
  >>>appss
-"""
+
 ['apprehensiveness', 'happiness', 'nappishness']
-"""
+
 ```
 接著透過count()得到出現次數
 
@@ -146,4 +143,58 @@ FreqDist(text1).hapaxes()
 ```python
 >>>dict(zip(appss, appcount))
 {'apprehensiveness': 4, 'happiness': 2, 'nappishness': 1}
+```
+## 練習
+- 寫一個切片表達式提取text2中最後兩個詞
+```python
+>>>text2[-2:]
+['THE', 'END']
+```
+- 找出聊天語料庫（text5）中所有四個字母的詞。使用頻率分佈函數（FreqDist），以頻率從高到低顯示這些詞。
+使用FreqDist的.most_common()方法，可得到單字與次數的list且依照次數排序，先把list名稱定義為fd5_freq
+```python
+>>>fd5_freq = FreqDist(text5).most_common()
+>>>print(fd5_freq)
+
+[('.', 1268),
+ ('JOIN', 1021),
+ ('PART', 1016),
+ ('?', 737),
+ ('lol', 704),
+ ('to', 658),
+ ('i', 648),
+ ...
+ 
+ ```
+ 接著要篩選只留下4個字母的單字，使用for in來處理
+ ```python
+>>>list(w for w in fd5_freq if len(w)==4)
+[]
+```
+依照直覺打出的code回傳的結果看來是錯誤的，w當中還有兩個元素，必須要加以指定
+如果不想顯示次數，將for前面w改為w[0]即可
+```python
+>>>list(w for w in fd5_freq if len(w[0])==4)
+[('JOIN', 1021),
+ ('PART', 1016),
+ ('that', 274),
+ ('what', 183),
+ ('here', 181),
+ ...
+ ```
+- 使用for和if語句組合循環遍歷《巨蟒和聖杯》（text6）的電影劇本中的詞，print所有的大寫詞，每行輸出一個。
+```python
+>>>for w in set(text6):
+...    if w.isupper():
+...        print(w)
+
+STUNNER
+BEDEVERE
+DENNIS
+GOD
+CHARACTERS
+PRINCESS
+CRONE
+...
+
 ```
