@@ -132,3 +132,5 @@ FreqDist(text1).hapaxes()
 'tomorrow', 'watching']
 """
 ```
+- 詞語搭配與雙連詞
+有些詞語經常搭配在一起使用且不能被類似的字替換，例如green card換成blue card意義上就不太一樣
