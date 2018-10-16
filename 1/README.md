@@ -91,18 +91,19 @@ text1.dispersion_plot(["god", "father", "king", "winter", "ship"])
 ```python
 >>>FreqDist(text1)
 FreqDist({',': 3681, 'and': 2428, 'the': 2411, 'of': 1358, '.': 1315, 'And': 1250, 'his': 651, 'he': 648, 'to': 611, ';': 605, ...})
+
 >>>FreqDist(text1).most_common(5)
 [(',', 3681), ('and', 2428), ('the', 2411), ('of', 1358), ('.', 1315)]
 ```
 可再將單字與次數做成累積頻率圖
 ```python
-FreqDist(text1).plot(50, cumulative=True)
+>>>FreqDist(text1).plot(50, cumulative=True)
 ```
 ![](https://github.com/catxxx591/30/blob/master/img/txt1_cumulative.png?raw=true)
 
 也可選出無重複過的單字
 ```python
-FreqDist(text1).hapaxes()
+>>>FreqDist(text1).hapaxes()
 ```
 
 ### 篩選
@@ -112,8 +113,7 @@ FreqDist(text1).hapaxes()
 ```python
 >>>fdist5 = FreqDist(text5)
 >>>sorted(w for w in set(text5) if len(w) > 7 and fdist5[w] > 7)
-```
-```
+
 ['#14-19teens', '#talkcity_adults', '((((((((((', '........', 'Question',
 'actually', 'anything', 'computer', 'cute.-ass', 'everyone', 'football',
 'innocent', 'listening', 'remember', 'seriously', 'something', 'together',
@@ -197,4 +197,54 @@ PRINCESS
 CRONE
 ...
 
+```
+- 寫表達式找出text6中所有符合下列條件的詞。結果應該是單詞列表的形式：['word1', 'word2', ...]。
+
+1. 以ize 結尾
+2. 包含字母z
+3. 包含字母序列pt
+4. 除了首字母外是全部小寫字母的詞（即titlecase）
+```python
+>>>list(w for w in set(text6) if w.endswith('ize'))
+>>>list(w for w in set(text6) if 'z' in w)
+>>>list(w for w in set(text6) if 'pt' in w)
+>>>list(w for w in set(text6) if w.istitle())
+```
+
+- 定義sent為一個單詞列表：['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']。編寫代碼執行以下任務：
+
+1. 輸出所有sh開頭的單詞
+2. 輸出所有長度超過4 個字符的詞
+```python
+>>>sent = ['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']
+>>>list(w for w in sent if w.startswith('sh'))
+>>>list(w for w in sent if len(w)>4)
+```
+
+- 下面的Python 代碼是做什麼的？ sum(len(w) for w in text1) 你可以用它來算出一個文本的平均字長嗎？
+把文本所有單字長度加起來 = 文本用了多少字母
+除以文本的單字數得平均字長
+```python
+>>>sum(len(w) for w in text1)/len(text1)
+3.830411128023649
+```
+
+- 定義一個名為vocab_size(text)的函數，以文本作為唯一的參數，返回文本的詞彙量。
+```python
+>>>def vocab_size(text):
+...    return len(set(text))
+>>>vocab_size(text5)
+6066
+```
+
+- 定義一個函數percent(word, text)，計算一個給定的詞在文本中出現的頻率，結果以百分比表示。
+```python
+>>>def percent(word,text):
+...    fdist = FreqDist(text)
+...    a = fdist[word]
+...    b = len(text)
+...    return a/b
+>>>percent('lol',text5)
+
+0.015640968673628082
 ```
