@@ -167,5 +167,15 @@ if w.lower().startswith(target))
 >>>cfd.plot()
 
 dict_items([('1945', 2), ('1946', 16), ('1947', 8), ('1948', 5), ('1949', 2), ('1950', 6), ('1951', 9), ('1953', 5)...]
+```
 ![](https://github.com/catxxx591/30/blob/master/img/state_union_plot.png?raw=true)
+
+- 在名字語料庫上定義一個條件頻率分佈，顯示哪個首字母在男性名字中比在女性名字中更常用
+```python
+>>> names = nltk.corpus.names
+>>> cfd = nltk.ConditionalFreqDist(
+...           (fileid, name[0])
+...           for fileid in names.fileids()
+...           for name in names.words(fileid))
+>>> cfd. plot()
 ```
