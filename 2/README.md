@@ -167,5 +167,5 @@ if w.lower().startswith(target))
 >>>cfd.plot()
 
 dict_items([('1945', 2), ('1946', 16), ('1947', 8), ('1948', 5), ('1949', 2), ('1950', 6), ('1951', 9), ('1953', 5)...]
-
+![](https://github.com/catxxx591/30/blob/master/img/state_union_plot.png?raw=true)
 ```
