@@ -179,3 +179,12 @@ dict_items([('1945', 2), ('1946', 16), ('1947', 8), ('1948', 5), ('1949', 2), ('
 ...           for name in names.words(fileid))
 >>> cfd. plot()
 ```
+![](https://github.com/catxxx591/30/blob/master/img/enname_plot.png?raw=true)
+
+- 寫一個函數word_freq()，用一個詞和布朗語料庫中的一個部分的名字作為參數，計算這部分語料中詞的頻率。
+```python
+>>>def word_freq(cate,word):
+...    return nltk.FreqDist(nltk.corpus.brown.words(categories=cate))[word]
+>>>word_freq('lore','cry')
+9
+```
