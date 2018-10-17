@@ -124,3 +124,48 @@ stopwords.words( 'english' )
 >>> content_fraction(nltk.corpus.reuters.words())
  0.7364374824583169
 ```
+## 練習
+- 創建一個變量phrase包含一個詞的列表。實驗本章描述的操作，包括加法、乘法、索引、切片和排序。
+```python
+>>>phrase = ['yee','poi','qaz']
+>>>print(phrase*2)
+>>>print(phrase+['eee'])
+>>>print(phrase[2])
+>>>print(phrase[1:3])
+>>>print(sorted(phrase))
+
+['yee', 'poi', 'qaz', 'yee', 'poi', 'qaz']
+['yee', 'poi', 'qaz', 'eee']
+qaz
+['poi', 'qaz']
+['poi', 'qaz', 'yee']
+```
+- 使用語料庫模塊處理austen-persuasion.txt。這本書中有多少詞符？多少詞型？
+```python
+>>>persuasion = nltk.corpus.gutenberg.words( 'austen-persuasion.txt' )
+>>>print(len(persuasion))
+>>>print(len(set(persuasion)))
+
+98171
+6132
+```
+- 使用布朗語料庫閱讀器nltk.corpus.brown.words()或網絡文本語料庫閱讀器nltk.corpus.webtext.words()來訪問兩個不同文體的一些樣例文本。
+```python
+nltk.corpus.brown.raw(categories='humor')
+nltk.corpus.brown.raw(categories='news')
+```
+- 使用state_union語料庫閱讀器，訪問《國情咨文報告》的文本。計數每個文檔中出現的men、women和people。隨時間的推移這些詞的用法有什麼變化？
+```python
+from nltk.corpus import state_union
+>>> cfd = nltk.ConditionalFreqDist(
+         (target, fileid[:4])  
+for fileid in state_union.fileids()
+for w in state_union.words (fileid)
+for target in [ 'men' , 'women','people' ] 
+if w.lower().startswith(target))
+>>>print(cfd['men'].items())
+>>>cfd.plot()
+
+dict_items([('1945', 2), ('1946', 16), ('1947', 8), ('1948', 5), ('1949', 2), ('1950', 6), ('1951', 9), ('1953', 5)...]
+
+```
