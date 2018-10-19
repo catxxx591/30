@@ -56,3 +56,4 @@ The Project Gutenberg EBook of Crime and Punishme
 >>> os.listdir( '.' )
 ```
 
+參考資料: Python 自然语言处理 第二版 <https://usyiyi.github.io/nlp-py-2e-zh/>
