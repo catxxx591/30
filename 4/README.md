@@ -40,8 +40,6 @@ The Project Gutenberg EBook of Crime and Punishme
 ```
 
 ### 讀取本地文件
->>> f = open( 'document.txt' )
->>> raw = f.read()
 
 ```python
 >>> f = open( '../txt/booksx.txt',encoding='utf8' )
@@ -52,4 +50,10 @@ The Project Gutenberg EBook of Crime and Punishme
 '\ufeff獨立宣言\n前言\n英國與其美洲殖民地之間的戰爭於一七七五年四月開始。隨著戰爭的延續，和解的希望逐漸消失，完全獨立已成為殖民地的目標。一七七六年六月七日，在大陸會議的一次集會中，維吉尼亞的理查．亨利．李提出一個議案，宣稱: 「這些殖民地是自由和獨立的國家，並且按其權利必須是自由和獨立的國家。」六月十日大陸會議指定一個委員會草擬獨立宣言。實際的起草工作由湯瑪斯．傑佛遜負責。七月四日獨立宣言獲得通過，並'
 """
 ```
+可使用os套件檢查目錄的檔案
+```python
+>>> import os
+>>> os.listdir( '.' )
+```
+
 
