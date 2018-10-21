@@ -79,7 +79,19 @@ colourless
 使用re.sub()從這些詞中刪除\n字符。
 你如何確定一旦換行符被刪除後不應該保留連字符的詞彙，如'encyclo-\npedia'？
 ```python
->>> txt = "long-\ntrem"
->>> re.findall(r'.+(?:-\n).+',txt)
->>> re.sub(r'\n',"",txt)
+>>> txt = "encyclo-\npedia long-\nterm"
+>>> tlist = re.findall(r'.+(?:-\n)\w+',txt)
+>>>　sublist=[re.sub(r'\n',"",w) for w in tlist]
+
+>>> english_vocab = set(w.lower() for w in nltk.corpus.words.words())
+>>> for s in sublist:
+...     if re.sub(r'-',"",s) in english_vocab:
+...         s = re.sub(r'-',"",s)
+...     else:
+...         pass
+...     print(s)
+>>> #[(re.sub(r'-',"",s)) for s in sublist if re.sub(r'-',"",s) in english_vocab]
+
+encyclopedia
+ long-term
 ```
