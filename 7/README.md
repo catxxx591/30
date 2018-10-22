@@ -32,9 +32,11 @@ Default Mode: 垃圾/ 不分/ 藍綠
 - 格式英漢詞典狀語從句：dict.txt一樣，一個詞佔一行;每一行分三部分：詞語，詞頻（可省略），詞性（可省略），用空格隔開，不可順序顛倒file_name若為路徑或二進制方式打開的文件，則文件必須為UTF-8編碼。
 - 詞頻省略時使用自動計算的能保證分出該詞的詞頻。
 
-先建立自定義辭典的文字檔，在後面接上字數與詞性並用空白隔開
+先建立自定義辭典的文字檔，在後面接上詞頻與詞性並用空白隔開，詞頻越高表示優先度越高
 ```
 或許 2
+
+注意 自定义词典不要用Windows记事本保存，这样会加入BOM标志，导致第一行的词被误读。
 ```
 
 ```python
@@ -61,22 +63,12 @@ Default Mode: 垃圾/ 不分/ 藍綠
 - 使用suggest_freq(segment, tune=True)柯林斯調節單個詞語的詞頻，使其能（或不能）被分出來。
 - 注意：自動計算的詞頻在使用HMM新詞發現功能時可能無效。
 ```python
->>> print('/'.join(jieba.cut('如果放到post中將出錯。',HMM = False)))
+>>> print('/'.join(jieba.cut('我們中出了一個叛徒', HMM=True)))
+我们/中出/了/一个/叛徒
 
->>> jieba.suggest_freq(['中','將'],True)
+>>> jieba.suggest_freq(('中', '出'), True)
+>>> print('/'.join(jieba.cut('我們中出了一個叛徒', HMM=False)))  #suggest_freq後HMM要改成False
 
->>> print('/'. join(jieba.cut('如果放到post中將出錯。',HMM = False)))
-
-##################################################################
-
->>> print('/'. join(jieba.cut(' “台中”正確應該不會被切開',HMM = False)))
-
->>> jieba.suggest_freq('台中',True)
-
->>> print('/'.join(jieba.cut(' “台中”正確應該不會被切開',HMM = False)))
-
-如果/放到/post/中/將/出/錯/。
-如果/放到/post/中/將/出/錯/。
- /“/台中/”/正/確/應/該/不/會/被/切/開
- /“/台中/”/正/確/應/該/不/會/被/切/開
+我们/中/出/了/一个/叛徒
 ```
+參考資料: <https://github.com/fxsjy/jieba>
