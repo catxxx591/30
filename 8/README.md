@@ -55,7 +55,7 @@ jieba.analyse.TextRank（）新建自定義TextRank實例
 早餐 n
 ```
 
-## Tokenize：返回词语在原文的起止位置
+## Tokenize：返回詞語在原文的起止位置
 
 jieba.tokenize(u'')，字串前面要+u，回傳的值要用for in打開
 - 默認模式
