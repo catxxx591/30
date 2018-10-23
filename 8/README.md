@@ -28,7 +28,6 @@ jieba.analyse.extract_tags(sentence, topK=20, withWeight=False, allowPOS=())
 ## 2. TextRank
 
 jieba.analyse.textrank（sentence, topK=20, withWeight=False, allowPOS=('ns','n','vn','v'））直接使用，接口相同，注意默認過濾詞性。
-jieba.analyse.TextRank（）新建自定義TextRank實例
 
 ```python
 >>> print(jieba.analyse.textrank(s,  withWeight=False))
