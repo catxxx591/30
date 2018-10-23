@@ -54,3 +54,34 @@ jieba.analyse.TextRank（）新建自定義TextRank實例
 買 v
 早餐 n
 ```
+
+## Tokenize：返回词语在原文的起止位置
+
+jieba.tokenize(u'')，字串前面要+u，回傳的值要用for in打開
+- 默認模式
+```python
+>>> result = jieba.tokenize(u'他在游泳池唱國歌')
+>>> for tk in result:
+...     print("word %s\t\t start: %d \t\t end:%d" % (tk[0],tk[1],tk[2]))
+
+word 他		 start: 0 		 end:1
+word 在		 start: 1 		 end:2
+word 游泳池		 start: 2 		 end:5
+word 唱國歌		 start: 5 		 end:8
+```
+- 搜尋模式
+
+```python
+>>> result = jieba.tokenize(u'他在游泳池唱國歌',mode='search')
+>>> for tk in result:
+...     print("word %s\t\t start: %d \t\t end:%d" % (tk[0],tk[1],tk[2]))
+    
+word 他		 start: 0 		 end:1
+word 在		 start: 1 		 end:2
+word 游泳		 start: 2 		 end:4
+word 泳池		 start: 3 		 end:5
+word 游泳池		 start: 2 		 end:5
+word 唱國歌		 start: 5 		 end:8
+```
+
+參考資料: <https://github.com/fxsjy/jieba>
