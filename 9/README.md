@@ -103,6 +103,7 @@ def  gender_features2 (name):
 >>> devtest_names = labeled_names[500:1500]
 >>> test_names = labeled_names[:500]
 ```
+![](https://github.com/catxxx591/30/blob/master/img/dev_testset.jpg?raw=true)
 ```python
 >>> train_set = [(gender_features(n), gender) for (n, gender) in train_names]
 >>> devtest_set = [(gender_features(n), gender) for (n, gender) in devtest_names]
@@ -112,3 +113,47 @@ def  gender_features2 (name):
 0.756
 ```
 
+使用開發測試集，我們可以生成一個分類器預測名字性別時的錯誤列表：
+```python
+>>> errors = []
+>>> for (name, tag) in devtest_names: 
+...     guess = classifier.classify(gender_features(name))
+...     if guess != tag:
+...         errors.append( ( tag, guess, name) )
+```
+
+```python
+>>> for (tag, guess, name) in sorted(errors):
+...     print ( 'correct={:<8} guess={:<8s} name={:<30}' .format(tag, guess, name))
+
+correct=female   guess=male     name=Ailyn                         
+correct=female   guess=male     name=Annabal                       
+correct=female   guess=male     name=Ardys                         
+correct=female   guess=male     name=Astrid                        
+correct=female   guess=male     name=Blair                         
+correct=female   guess=male     name=Caren                         
+correct=female   guess=male     name=Carin                         
+correct=female   guess=male     name=Catherin                      
+correct=female   guess=male     name=Cherilynn                     
+correct=female   guess=male     name=Chris             
+...
+```
+
+瀏覽這個錯誤列表，它明確指出一些多個字母的後綴可以指示名字性別。例如，yn結尾的名字顯示以女性為主，儘管事實上，n結尾的名字往往是男性；以ch結尾的名字通常是男性，儘管以h結尾的名字傾向於是女性。因此，調整我們的特徵提取器包括兩個字母后綴的特徵：
+```python
+>>> def  gender_features3 (word):
+...     return { 'suffix1' : word[-1:],
+...             'suffix2' : word[-2:]}
+```
+使用新的特徵提取器重建分類器，我們看到測試數據集上的性能提高了（從76.5％到77.9％）：
+```python
+>>> train_set = [(gender_features3(n), gender) for (n, gender) in train_names]
+>>> devtest_set = [(gender_features3(n), gender) for (n, gender) in devtest_names]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+>>> print (nltk.classify.accuracy(classifier, devtest_set))
+0.779
+```
+這個錯誤分析過程可以不斷重複，檢查存在於由新改進的分類器產生的錯誤中的模式。每一次錯誤分析過程被重複，我們應該選擇一個不同的開發測試/訓練分割，以確保該分類器不會開始反映開發測試集的特質。
+
+但是，一旦我們已經使用了開發測試集幫助我們開發模型，關於這個模型在新數據會表現多好，我們將不能再相信它會給我們一個準確地結果。因此，保持測試集分離、未使用過，直到我們的模型開發完畢是很重要的。在這一點上，我們可以使用測試集評估模型在新的輸入值上執行的有多好。
+參考資料: Python 自然語言處理第二版<https://usyiyi.github.io/nlp-py-2e-zh/>
