@@ -45,4 +45,6 @@ Most Informative Features
      contains(atrocious) = True              neg : pos    =      6.3 : 1.0
         contains(turkey) = True              neg : pos    =      6.2 : 1.0
 ```
+結論可說當評論當中出現"welles"時有8.3倍可能是負面評論，而出現"neatly"時有6.3倍是正面評論?
 
+參考資料: Python 自然語言處理第二版 <https://usyiyi.github.io/nlp-py-2e-zh/>
