@@ -1,7 +1,10 @@
 詞性標註
 ==
-我們使用Brown語料庫找出當中文本單字字尾的出現頻率
+使用Brown語料庫
+
 (Brown語料庫是nltk中的內建語料庫，特色是所有文本依照主題分類)
+
+--- 
 
 定義一個fdist之後將brown語料庫中單字的末三個字母組合統計起來
 
@@ -54,30 +57,48 @@ FreqDist({'e': 202946, ',': 175002, '.': 152999, 's': 128722, 'd': 105687, 't': 
 >>> nltk.classify.accuracy(classifier, test_set)
 0.6270512182993535
 ```
-最後可將新資料帶入剛完成的決策樹模型。此時得到的結果是經由模型計算得出，而非經由特徵集查詢。
+最後可將新資料帶入剛完成的決策樹模型。此時得到的結果是經由模型計算得出，而非透過特徵集查詢。
 ```python
 >>> classifier.classify(pos_features( 'yee' ))
 'NN'
 ```
 
-我們可以已偽代碼的形式查看決策樹的分支，觀察模型的決策過程
+我們可以以偽代碼的形式查看決策樹的分支，觀察模型的決策過程
 ```python
->>> print (classifier.pseudocode(depth=5))
+>>> print (classifier.pseudocode(depth=10))
 
 if endswith(the) == False: 
   if endswith(,) == False: 
     if endswith(s) == False: 
       if endswith(.) == False: 
-        if endswith(of) == False: return '.'
+        if endswith(of) == False: 
+          if endswith(and) == False: 
+            if endswith(a) == False: 
+              if endswith(in) == False: 
+                if endswith(ed) == False: 
+                  if endswith(to) == False: return '.'
+                  if endswith(to) == True: return 'TO'
+                if endswith(ed) == True: return 'VBN'
+              if endswith(in) == True: return 'IN'
+            if endswith(a) == True: return 'AT'
+          if endswith(and) == True: return 'CC'
         if endswith(of) == True: return 'IN'
       if endswith(.) == True: return '.'
     if endswith(s) == True: 
       if endswith(is) == False: 
-        if endswith(was) == False: return 'PP$'
+        if endswith(was) == False: 
+          if endswith(as) == False: 
+            if endswith('s) == False: 
+              if endswith(ss) == False: return 'NNS'
+              if endswith(ss) == True: return 'NN'
+            if endswith('s) == True: return 'NP$'
+          if endswith(as) == True: return 'CS'
         if endswith(was) == True: return 'BEDZ'
       if endswith(is) == True: 
         if endswith(his) == False: return 'BEZ'
         if endswith(his) == True: return 'PP$'
   if endswith(,) == True: return ','
 if endswith(the) == True: return 'AT'
+
 ```
+參考資料: Python 自然語言處理第二版 <https://usyiyi.github.io/nlp-py-2e-zh/>
