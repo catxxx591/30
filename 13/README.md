@@ -76,4 +76,57 @@ def  segment_sentences (words):
 書上代碼def  segment_sentences (words):中 words似乎得使用tokens的格式，並且在tokens後面+["end
 "]，因為提取特徵會參考符號的前後字，最後一個句點後方沒文字了會出現Error
 
+在斷句之前先轉換string的格式
+```python
+def tokens_str(txt=""):
+    s = re.findall(r"[\w('’)\w]+|\S",txt)
+    s.append('<end>')
+    return s
+```
+隨便在FB找一串字測試
+```python
+>>> trysent = "See, who says you can’t teach cats tricks like a dog? Look at the fabulous Moush gracefully put his front paws waaaay up in the air to get his treats!"
+>>> words = tokens_str(trysent)
+```
+
+開始斷句
+```python
+>>> segment_sentences(words)
+"""
+[['See',
+  ',',
+  'who',
+  'says',
+  'you',
+  'can’t',
+  'teach',
+  'cats',
+  'tricks',
+  'like',
+  'a',
+  'dog',
+  '?'],
+ ['Look',
+  'at',
+  'the',
+  'fabulous',
+  'Moush',
+  'gracefully',
+  'put',
+  'his',
+  'front',
+  'paws',
+  'waaaay',
+  'up',
+  'in',
+  'the',
+  'air',
+  'to',
+  'get',
+  'his',
+  'treats',
+  '!'],
+ ['<end>']]
+ """
+```
 參考資料: Python 自然语言处理 第二版<https://usyiyi.github.io/nlp-py-2e-zh/>
