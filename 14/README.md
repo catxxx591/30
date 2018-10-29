@@ -95,5 +95,8 @@ def  entropy (labels):
 
 ![](https://github.com/catxxx591/30/blob/master/img/BayP.jpg?raw=true)
 
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/679e25db34f602d562e503af6d772125f78ab31e)
+
+
 
 參考資料:Python 自然语言处理 第二版<https://usyiyi.github.io/nlp-py-2e-zh/>
