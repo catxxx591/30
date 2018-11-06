@@ -137,3 +137,6 @@ print(pos_features2(test_news,3))
 每一個高頻字都會在每個分類提取一次特徵，並且在製作特徵集時附上正確的標籤，所想這樣或許能解決抹些分類較模糊的問題
 
 我嘗試了用前100高頻字建立模型，時間非常久阿...
+
+![](https://github.com/catxxx591/30/blob/master/img/memory_crash.PNG?raw=true)
+
