@@ -1,6 +1,10 @@
 分析句子結構
 ==
-這單元好像是怎麼把樹狀的CFG格式透過分析器自動組合成句子吧?
+本章的目的是要回答下列問題：
+
+1. 我們如何使用形式化語法來描述無限的句子集合的結構？
+2. 我們如何使用句法樹來表示句子結構？
+3. 語法分析器如何分析一個句子並自動構建句法樹？
 
 先來看書上舉的例句[ 'I' , 'shot' , 'an' , 'elephant' , 'in' , 'my' , 'pajamas' ]，並且整理出CFG格式
 
@@ -37,6 +41,15 @@
     (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
     
 ```
+- 句法類型
+```python
+>>> grammar1 = nltk.data.load( 'file:mygrammar.cfg' )
+>>> sent = "Mary saw Bob" .split()
+>>> rd_parser = nltk.RecursiveDescentParser(grammar1)
+>>> for tree in rd_parser.parse(sent):
+...      print (tree)
+```
+確保你的文件名後綴為.cfg，並且字符串'file:mygrammar.cfg'中間沒有空格符。
 
 當你編寫CFG在NLTK中分析時，你不能將語法類型與詞彙項目一起寫在同一個產生式的右側。
 
@@ -93,7 +106,7 @@ RecursiveDescentParser()在分析grammar2的CFG結構是由樹自上而下分析
 從這流程圖能看到是由單字開始組合成詞塊，由下而上可能過程在合併為更大的詞塊，直到出現樹根S完成歸約分析
 
 
-還是很疑惑這單元的流程是怎樣
+還是很困惑這單元的流程是怎樣，在句法類型代碼還沒弄懂
 
 參考資料:
 Python 自然语言处理 第二版<https://usyiyi.github.io/nlp-py-2e-zh/8.html>
