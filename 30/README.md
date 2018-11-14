@@ -165,9 +165,15 @@ for word, flag in words:
 哀...這些方法用下來，想想就能想出很多漏洞
 
 參考資料:
+
 结巴中文分词<https://github.com/fxsjy/jieba>
+
 python实现中文字符繁体和简体中文转换<https://blog.csdn.net/thomashtq/article/details/41512359>
+
 中文情感分析语料库大全<https://mlln.cn/2018/10/11/%E4%B8%AD%E6%96%87%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90%E8%AF%AD%E6%96%99%E5%BA%93%E5%A4%A7%E5%85%A8-%E5%B8%A6%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80/>
+
 基于情感词典的情感打分<https://blog.csdn.net/bcj296050240/article/details/46686797>
+
 Chinese Search Sharing<https://blog.liang2.tw/2015Talk-Chinese-Search/#jieba-moedict>
+
 Python 自然语言处理 第二版<https://usyiyi.github.io/nlp-py-2e-zh/>
